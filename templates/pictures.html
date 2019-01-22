@@ -1,0 +1,70 @@
+<!doctype html>
+<style>
+img{
+    max-width:660px;
+    max-height:600px;
+}
+</style>
+<title>Photoshare</title>
+{% if name %}
+  <h1>Hello {{ name }}!</h1>
+{% endif %}
+
+<h4>Here are the pictures {{info}} {{album}}!</h4>
+
+
+{% if user %}
+	<h2>Photos</h2>
+    <ul>
+    {% for photo in photos %}
+	<div class=pic_box>
+		<form action="{{ url_for('addLike', picture_id=photo[1]) }}" method="POST">
+		<li>{{photo[2]}} <button class=likeButton type="submit"><span>Likes: {{photo[4]}}</span></button><br>
+        <img src='data:image/png;base64, {{photo[0]}}'/></li> <br> 
+		</form>		
+		{% if photo|length > 5 %}
+			<h4> Comments </h4>
+			{% for comment in photo[5] %}
+				<div class=comment>
+					{{comment[1][0]}}: {{comment[0]}}
+				</div> <br>
+			{% endfor %}
+			<form method = "GET" action='/search/comment/{{photo[1]}}'>
+				<button type="submit">Add comment</button>
+			</form>
+		{% else %}
+			<h4>No Comments<a href='/search/comment/{{photo[1]}}'>(Be the first!)</a></h4>
+		{% endif %}
+	
+	</div>
+    {% endfor %}
+    </ul>
+
+
+{% elif photos %}
+	<h2>Photos</h2>
+    <ul>
+    {% for photo in photos %}
+        <li>{{photo[2]}}<br>
+        <img src='data:image/png;base64, {{photo[0]}}'/ width=300 height=200></li>
+		{% if tags %}
+			<h5> Tags (<a href='/pictures/{{photo[1]}}'> Edit </a>) </h5>
+			<ul>
+			{% for tag in tags[photo[1]]  %}
+				<li><a href='/search/tags/{{tag[0]}}'> {{ tag[0] }}</a></li>
+			{% endfor %}
+			</ul>
+		{% endif %}
+		<br>
+    {% endfor %}
+    </ul>
+{% endif %}
+
+
+<ul>
+<li> Go back to <a href='/profile'>profile?</a> </li>
+<li><a href='/upload/{{album}}'>Upload a photo to this album</a> </li> 
+<li><a href='/logout'>Logout</a></li>
+<li><a href='/'>Home</a></li>
+</ul>
+

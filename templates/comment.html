@@ -1,0 +1,22 @@
+<!doctype html>
+<title>Photoshare</title>
+<h1>Comment on Photo:</h1>
+
+<h4> Caption: {{photo[2]}}</h4><br>
+<img src='data:image/png;base64, {{photo[0]}}'/ width=300 height=200> 
+<br>
+<form action='/search/comment/{{photo[1]}}' method="POST">
+	<input type="text" placeholder="Comment text..." name="newcomment" required> 
+	<button type="submit" value="Search">Post comment</button>
+</form>
+<br>
+
+
+
+
+<ul>
+<li> Go back to <a href='/profile'>profile?</a> </li>
+<li><a href='/logout'>Logout</a></li>
+<li><a href='/'>Home</a></li>
+</ul>
+

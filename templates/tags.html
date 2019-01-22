@@ -1,0 +1,36 @@
+<!doctype html>
+<title>Photoshare</title>
+{% if name %}
+  <h1>Hello {{ name }}!</h1>
+{% endif %}
+
+<h2>Here are the tags for this photo</h2>
+
+<h4> Caption: {{photo[2]}}</h4><br>
+<img src='data:image/png;base64, {{photo[0]}}'/ width=300 height=200>
+{% if tags %}
+	<h5> Tags: </h5>
+	<ul>
+	{% for tag in tags  %}
+		<form method='post' action="{{url_for('deleteTag', tag_name=tag[0], picture_id=photo[1])}}">
+		<li><a href='/search/tags/{{tag[0]}}'> {{ tag[0] }} </a><button type='submit'> Delete </button></li>
+		</form>
+	{% endfor %}
+	</ul>
+{% endif %}
+
+<form action="{{url_for('addTag', picture_id=photo[1])}}" method="POST">
+	<div class="form-group">
+		<input type="text" class="form-control" placeholder="New Tag" name="newtag"> 
+		<button type="submit" value="Search" class="btn btn-default submit">Add Tag</button>
+	</div>		
+</form>
+	
+<br>
+
+<ul>
+<li> Go back to <a href='/profile'>profile?</a> </li>
+<li><a href='/logout'>Logout</a></li>
+<li><a href='/'>Home</a></li>
+</ul>
+

@@ -1,0 +1,71 @@
+<!doctype html>
+
+<style>
+.pic_box{   background-color: aliceblue;
+			color: black;
+			margin: 100px;
+		}
+		
+.comment{	background-color: gainsboro;
+			color: black;
+		}
+
+ul {text-align:center;}
+
+img{
+    max-width:660px;
+    max-height:600px;
+}
+
+.likeButton {width:6em}
+.likeButton:hover span {display:none}
+.likeButton:hover:before {content:"^"}
+</style>
+
+<title>Photoshare</title>
+{% if error %}
+  <h1>Sorry but we could not find pictures which matched {{ search }}</h1>
+{% endif %}
+
+{% if error != True %}
+<h1>Here are the pictures which match {{search}}!</h1>
+{% endif %}
+
+
+{% if photos %}
+    <ul>
+    {% for photo in photos %}
+	<div class=pic_box>
+		<form action="{{ url_for('addLike', picture_id=photo[1]) }}" method="POST">
+		<li>{{photo[2]}} <button class=likeButton type="submit"><span>Likes: {{photo[4]}}</span></button><br>
+        <img src='data:image/png;base64, {{photo[0]}}'/></li> <br> 
+		</form>
+		<form method = "POST" action="{{  url_for('addFriend', friend = photo[3])  }}">
+			{{ photo[3] }} <button type="submit">Add as Friend?</button>
+		</form>
+		
+		{% if photo|length > 5 %}
+			<h4> Comments </h4>
+			{% for comment in photo[5] %}
+				<div class=comment>
+					{{comment[1][0]}}: {{comment[0]}}
+				</div> <br>
+			{% endfor %}
+			<form method = "GET" action='/search/comment/{{photo[1]}}'>
+				<button type="submit">Add comment</button>
+			</form>
+		{% else %}
+			<h4>No Comments<a href='/search/comment/{{photo[1]}}'>(Be the first!)</a></h4>
+		{% endif %}
+	
+	</div>
+    {% endfor %}
+    </ul>
+{% endif %}
+
+<ul text-align="left">
+<li> Go to my <a href='/profile'>profile</a> </li>
+<li><a href='/logout'>Logout</a></li>
+<li><a href='/'>Home</a></li>
+</ul>
+

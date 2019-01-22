@@ -1,0 +1,20 @@
+<head>
+    <title>Upload a photo!</title>
+</head>
+    <body>
+        <div class="title">
+            <h1>Upload a photo to Photoshare</h1>
+        </div>
+			{% if not_unique %}
+				<font color='red'> That image already exists in another album </font> Return to <a href='/profile'>profile?</a>
+			{% endif %}
+            <form method="post" enctype="multipart/form-data" action="/upload/{{album}}">
+                <label for="photo">Select photo:</label>
+                <input type="file" name="photo" required='true' /><br />
+                <label for="caption">Please caption:</label>
+                <input type="text" name="caption" required='true' /><br />
+				<label for="tags">Tag the picture:</label>
+                <input type="text" name="tags" /><br />
+                <input type="submit" value="Upload" />
+            </form>
+    </body>

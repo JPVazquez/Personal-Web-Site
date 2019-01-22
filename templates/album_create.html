@@ -1,0 +1,19 @@
+<head>
+    <title>Create a new album!</title>
+</head>
+    <body>
+        <div class="title">
+            <h1>Enter album name</h1>
+        </div>
+            <form method="post" action="/create">
+                <label for="caption">Please name new album:</label>
+                <input type="text" name="name" required='true' />
+				
+				{% if name %}
+				<font color="red"> Album {{ name }} already exists </font>
+				{% endif %}
+				
+				<br />
+                <input type="submit" value="Upload" />
+            </form>
+    </body>
