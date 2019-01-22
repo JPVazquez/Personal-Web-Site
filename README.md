@@ -1,2 +1,2 @@
-# Personal-Web-Site
-Just a project repository for working on CSS/HTML by making a basic website
+# Photoshare
+This project seeks to develop a simple web application whose main purpose is to upload and share photos with other users in a way similar to the popular website Flickr. 
